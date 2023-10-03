@@ -1,25 +1,19 @@
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 
-#from ydata_profiling import ProfileReport
+def main():
+    df = pd.read_csv('./row/online_shoppers_intention.csv')
 
-import polars as pl
-print('polars_version:',pl.__version__)
+    df['Month'] = df['Month'].replace('aug','Aug')
+    df['Informational_Duration'].fillna(df['Informational_Duration'].median(), inplace=True)
+    df['ProductRelated_Duration'].fillna(df['ProductRelated_Duration'].median(), inplace=True)
+    df['ExitRates'].fillna(df['ExitRates'].median(), inplace=True)
+    df['Revenue'].replace({False: 0,
+                           True: 1},inplace = True)
 
-from scipy.stats import f_oneway
+    df.to_csv('./row/online_shoppers_inention_eda.csv')
 
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-#from sklearn.dummy import DummyClassifier
-#from sklearn.utils import shuffle
-from sklearn.metrics import accuracy_score,recall_score, precision_score, roc_curve, roc_auc_score, f1_score, confusion_matrix
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.preprocessing import StandardScaler
 
-df = pd.read_csv('online_shoppers_intention.csv')
-df_copy['Informational_Duration'].fillna(df_copy['Informational_Duration'].median(), inplace=True)
-df_copy['ProductRelated_Duration'].fillna(df_copy['ProductRelated_Duration'].median(), inplace=True)
-df_copy['ExitRates'].fillna(df_copy['ExitRates'].median(), inplace=True)
+
+if __name__=='__main__':
+    main()
+    
